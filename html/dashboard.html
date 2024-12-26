@@ -4,117 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Appointment Dashboard</title>
-    <link rel="stylesheet" href="/css/dashboard.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="/html/landingpage.html">THE GOLD PANICLES</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                </ul>
-            </div>
+            <a class="navbar-brand" href="#">Dashboard</a>
         </div>
     </nav>
 
-
+    <!-- Main Content -->
+    <div style="display: flex;">
+        <!-- Calendar Section -->
         <div class="calendar-container">
             <div class="calendar-header">
                 <button class="btn btn-primary" onclick="navigate(-1)">&lt;</button>
-                <h2 id="month-year">2024 November</h2>
+                <h3 id="month-year">2024 November</h3>
                 <button class="btn btn-primary" onclick="navigate(1)">&gt;</button>
             </div>
-            <div class="calendar-grid" id="calendar-grid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px;">
-                <!-- Calendar days will be dynamically generated here -->
+            <div class="calendar-grid" id="calendar-grid">
+                <!-- Calendar dynamically rendered here -->
             </div>
         </div>
+
+        <div class="sidebar">
+            <button onclick="location.href='#'">Calendar</button>
+            <button onclick="location.href='/html/setappointment.html'">Set appointments</button>
+            <button onclick="location.href='/html/assignment.html'">Assignments</button>
+        </div>
+        
+    <!-- Footer -->
+    <div class="footer">
+        &copy; 2024 TGP | All Rights Reserved
     </div>
 
     <script>
         const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-        let currentDate = new Date(2024, 10); // November 2024
-
-        const dailyLimits = {}; // To track daily appointments
-        const holidays = {
-            "2024-11-11": "Veterans Day",
-            "2024-11-28": "Thanksgiving Day"
-        };
+        let currentDate = new Date(2024, 10);
 
         function renderCalendar() {
-            const calendarGrid = document.getElementById('calendar-grid');
-            const monthYear = document.getElementById('month-year');
-            calendarGrid.innerHTML = '';
+            const calendarGrid = document.getElementById("calendar-grid");
+            const monthYear = document.getElementById("month-year");
+            calendarGrid.innerHTML = "";
 
-            // Set month and year
             monthYear.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
 
-            // Add weekdays headers
+            // Add weekday headers
             weekDays.forEach(day => {
-                const headerCell = document.createElement('div');
+                const headerCell = document.createElement("div");
                 headerCell.textContent = day;
-                headerCell.style.fontWeight = 'bold';
-                headerCell.style.textAlign = 'center';
+                headerCell.style.fontWeight = "bold";
+                headerCell.style.textAlign = "center";
                 calendarGrid.appendChild(headerCell);
             });
 
-            // Get first day and number of days in the month
             const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
             const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
 
-            // Add empty cells for days before the first day of the month
+            // Add empty cells for days before the first of the month
             for (let i = 0; i < firstDay; i++) {
-                const emptyCell = document.createElement('div');
+                const emptyCell = document.createElement("div");
                 calendarGrid.appendChild(emptyCell);
             }
 
-            // Add day cells
+            // Add cells for each day of the month
             for (let day = 1; day <= daysInMonth; day++) {
-                const dayOfWeek = new Date(currentDate.getFullYear(), currentDate.getMonth(), day).getDay();
-                const isWeekday = dayOfWeek !== 0 && dayOfWeek !== 6;
-                const appointmentCount = dailyLimits[day] || 0;
-
-                const dayCell = document.createElement('div');
+                const dayCell = document.createElement("div");
                 dayCell.textContent = day;
-                dayCell.style.textAlign = 'center';
-                dayCell.style.padding = '10px';
-                dayCell.style.border = '1px solid #ccc';
-                dayCell.style.borderRadius = '5px';
-                dayCell.style.cursor = 'pointer';
 
-                const dateKey = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                if (holidays[dateKey]) {
-                    dayCell.style.backgroundColor = '#ffc107'; // Yellow for holidays
-                    dayCell.style.color = '#000';
-                    dayCell.title = holidays[dateKey];
-                } else if (isWeekday) {
-                    if (appointmentCount < 2) {
-                        dayCell.style.backgroundColor = '#28a745'; // Green for available
-                        dayCell.style.color = '#fff';
-                        dayCell.onclick = () => redirectToAppointments(day);
-                    } else {
-                        dayCell.style.backgroundColor = '#dc3545'; // Red for limit reached
-                        dayCell.style.color = '#fff';
-                        dayCell.title = 'Daily limit reached';
-                    }
-                } else {
-                    dayCell.style.backgroundColor = '#f8f9fa'; // Grey for weekends
+                // Determine if the day is a weekday (Monday to Friday)
+                const weekDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), day).getDay();
+                if (weekDay >= 1 && weekDay <= 5) {
+                    dayCell.classList.add(day % 2 === 0 ? "green" : "red");
                 }
 
+                dayCell.onclick = () => window.location.href = "form.html";
                 calendarGrid.appendChild(dayCell);
             }
-        }
-
-        function redirectToAppointments(day) {
-            const dateKey = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-            window.location.href = `appointments.html?date=${dateKey}`;
         }
 
         function navigate(direction) {

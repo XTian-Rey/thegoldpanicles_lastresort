@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Appointments Overview</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .table-container {
+            margin: 2rem auto;
+            max-width: 800px;
+        }
+        .denial-reason {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/html/dashboard.html"> < Dashboard </a>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h4 class="mb-4">Daily Appointments Overview</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Task</th>
+                    <th>Approved</th>
+                    <th>Denied</th>
+                    <th>Assigned Staffer</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Row 1 -->
+                <tr>
+                    <td>09:00 AM</td>
+                    <td>LCO</td>
+                    <td class="text-center">
+                        <input type="checkbox" class="form-check-input approval-checkbox">
+                    </td>
+                    <td class="text-center">
+                        <input type="checkbox" class="form-check-input denial-checkbox">
+                        <textarea class="form-control mt-2 denial-reason" placeholder="Reason for denial"></textarea>
+                    </td>
+                    <td>
+                        <select class="form-select">
+                            <option selected disabled>Select Staffer</option>
+                            <option value="staffer1">John Doe</option>
+                            <option value="staffer2">Jane Smith</option>
+                            <option value="staffer3">Alice Brown</option>
+                            <option value="staffer4">Bob White</option>
+                            <option value="staffer5">John Dick</option>
+                            <option value="staffer6">Jane Smug</option>
+                            <option value="staffer7">Alice Brownies</option>
+                            <option value="staffer7">Bob Whiten</option>
+                        </select>
+                    </td>
+                    <td class="text-center">
+                        <input type="checkbox" class="form-check-input status-checkbox">
+                    </td>
+                </tr>
+                <!-- Row 2 -->
+                <tr>
+                    <td>11:00 AM</td>
+                    <td>Likha conference</td>
+                    <td class="text-center">
+                        <input type="checkbox" class="form-check-input approval-checkbox">
+                    </td>
+                    <td class="text-center">
+                        <input type="checkbox" class="form-check-input denial-checkbox">
+                        <textarea class="form-control mt-2 denial-reason" placeholder="Reason for denial"></textarea>
+                    </td>
+                    <td>
+                        <select class="form-select">
+                            <option selected disabled>Select Staffer</option>
+                            <option value="staffer1">John Doe</option>
+                            <option value="staffer2">Jane Smith</option>
+                            <option value="staffer3">Alice Brown</option>
+                            <option value="staffer4">Bob White</option>
+                            <option value="staffer5">John Dick</option>
+                            <option value="staffer6">Jane Smug</option>
+                            <option value="staffer7">Alice Brownies</option>
+                            <option value="staffer7">Bob Whiten</option>
+                        </select>
+                    </td>
+                    <td class="text-center">
+                        <input type="checkbox" class="form-check-input status-checkbox">
+                    </td>
+                </tr>
+                <!-- Row 3 -->
+                <tr>
+                    <td>02:00 PM</td>
+                    <td>Graduation</td>
+                    <td class="text-center">
+                        <input type="checkbox" class="form-check-input approval-checkbox">
+                    </td>
+                    <td class="text-center">
+                        <input type="checkbox" class="form-check-input denial-checkbox">
+                        <textarea class="form-control mt-2 denial-reason" placeholder="Reason for denial"></textarea>
+                    </td>
+                    <td>
+                        <select class="form-select">
+                            <option selected disabled>Select Staffer</option>
+                            <option value="staffer1">John Doe</option>
+                            <option value="staffer2">Jane Smith</option>
+                            <option value="staffer3">Alice Brown</option>
+                            <option value="staffer4">Bob White</option>
+                            <option value="staffer5">John Dick</option>
+                            <option value="staffer6">Jane Smug</option>
+                            <option value="staffer7">Alice Brownies</option>
+                            <option value="staffer7">Bob Whiten</option>
+                        </select>
+                    </td>
+                    <td class="text-center">
+                        <input type="checkbox" class="form-check-input status-checkbox">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.querySelectorAll('.denial-checkbox').forEach((checkbox, index) => {
+            checkbox.addEventListener('change', function() {
+                const reasonTextarea = document.querySelectorAll('.denial-reason')[index];
+                if (this.checked) {
+                    reasonTextarea.style.display = 'block';
+                } else {
+                    reasonTextarea.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
