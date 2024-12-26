@@ -1,9 +1,14 @@
-/* login.css */
+/* Define Custom Properties for Easy Modification */
+:root {
+    --primary-color: #f5c52b; /* Consistent gold-yellow color */
+    --text-color: #343a40; /* Dark gray */
+    --border-radius: 12px; /* Modify this for border shape */
+}
 
 /* General Reset */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f5c52b; /* Light gray background */
+    background-color: var(--primary-color);
     margin: 0;
     padding: 0;
 }
@@ -11,61 +16,79 @@ body {
 /* Navbar Styling */
 .navbar {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: var(--primary-color);
 }
 .navbar-brand {
     font-size: 1.5rem;
-    color: #343a40; /* Dark gray */
+    color: var(--text-color);
 }
 .nav-link {
-    color: #343a40;
+    color: var(--text-color);
 }
 .nav-link:hover {
-    color: #ffcc00; /* Gold color on hover */
+    color: #ffcc00; /* Slightly brighter gold */
+}
+
+/* Logo Section */
+.logo-container img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+.slogan {
+    font-style: italic;
+    color: var(--text-color);
 }
 
 /* Login Box */
 .login-box {
     max-width: 400px;
-    border: 1px solid #dee2e6; /* Light border */
-    background-color: #ffffff; /* White background */
+    border: 1px solid #dee2e6;
+    background-color: #ffffff;
+    border-radius: var(--border-radius);
 }
 .login-box h2 {
-    color: #343a40; /* Dark gray */
+    color: var(--text-color);
     font-size: 1.5rem;
     font-weight: bold;
 }
 .login-box form .form-control {
-    border: 1px solid #ced4da; /* Light gray border */
-    border-radius: 4px;
+    border: 1px solid #ced4da;
+    border-radius: var(--border-radius);
 }
 .login-box form .form-control:focus {
-    border-color: #ffcc00; /* Gold border on focus */
-    box-shadow: 0 0 5px rgba(255, 204, 0, 0.5); /* Gold shadow */
+    border-color: #ffcc00;
+    box-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
 }
 .login-box button {
-    background-color: #343a40;
+    background-color: var(--text-color);
     color: #ffffff;
     border: none;
-    border-radius: 4px;
+    border-radius: 50px;
 }
 .login-box button:hover {
-    background-color: #212529; /* Darker gray on hover */
+    background-color: #212529;
 }
 .login-box .btn-outline-warning {
-    color: #343a40;
+    color: var(--text-color);
     border-color: #ffcc00;
 }
 .login-box .btn-outline-warning:hover {
-    background-color: #ffcc00; /* Gold background on hover */
+    background-color: #ffcc00;
     color: #ffffff;
 }
 
 /* Footer */
 footer {
-    background-color: #ffcc00;
-    color: #343a40;
+    background-color: var(--primary-color);
+    color: var(--text-color);
     font-size: 0.9rem;
     font-weight: bold;
+}
+footer hr {
+    margin: 0 auto 10px;
+    width: 90%;
+    border: 0.5px solid black;
 }
 
 /* Responsiveness */
