@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f2c311;
+    color: #000;
+    text-align: center;
+}
+
+.tagline {
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.logo img {
+    width: 100px;
+}
+
+.login-box {
+    background-color: #fff5d7;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    font-size: 14px;
+}

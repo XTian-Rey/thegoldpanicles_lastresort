@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Appointment Dashboard</title>
+    <link rel="stylesheet" href="/css/setappointment.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+</head>
+<body>
+    <nav class="navbar navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="https://via.placeholder.com/30" alt="Logo" class="d-inline-block align-text-top">
+                Dashboard
+            </a>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    Menu
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="dashboard-header">
+            <h1>Set Appointments</h1>
+        </div>
+
+        <div class="table-container">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Assigned To</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="appointment-list">
+                    <!-- Dynamic rows will be added here -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="navigate(-1)">&lt; Previous</button>
+            <span id="month-year">2024 November</span>
+            <button class="btn btn-primary" onclick="navigate(1)">Next &gt;</button>
+        </div>
+    </div>
+
+    <script>
+        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        let currentDate = new Date(2024, 10); // November 2024
+
+        const appointments = [
+            { day: 1, description: "", assignedTo: "", completed: true },
+            { day: 7, description: "", assignedTo: "", completed: false },
+            { day: 14, description: "", assignedTo: "", completed: false },
+            { day: 21, description: "", assignedTo: "", completed: true }
+        ];
+
+        const staffers = ["John Doe", "Jane Smith", "Alice Brown", "Bob White"];
+
+        function renderAppointments() {
+            const appointmentList = document.getElementById('appointment-list');
+            appointmentList.innerHTML = '';
+
+            appointments.forEach((appointment, index) => {
+                const row = document.createElement('tr');
+
+                const descCell = document.createElement('td');
+                descCell.textContent = `${monthNames[currentDate.getMonth()]} ${appointment.day}: ${appointment.description}`;
+
+                const assignedCell = document.createElement('td');
+                const select = document.createElement('select');
+                select.className = 'form-select';
+                staffers.forEach(staffer => {
+                    const option = document.createElement('option');
+                    option.value = staffer;
+                    option.textContent = staffer;
+                    if (staffer === appointment.assignedTo) {
+                        option.selected = true;
+                    }
+                    select.appendChild(option);
+                });
+                assignedCell.appendChild(select);
+
+                const statusCell = document.createElement('td');
+                statusCell.className = 'status-cell';
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.checked = appointment.completed;
+                checkbox.addEventListener('change', () => {
+                    appointments[index].completed = checkbox.checked;
+                });
+                statusCell.appendChild(checkbox);
+
+                row.appendChild(descCell);
+                row.appendChild(assignedCell);
+                row.appendChild(statusCell);
+                appointmentList.appendChild(row);
+            });
+        }
+
+        function navigate(direction) {
+            currentDate.setMonth(currentDate.getMonth() + direction);
+            document.getElementById('month-year').textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+            renderAppointments();
+        }
+
+        // Initialize
+        renderAppointments();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

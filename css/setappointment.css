@@ -1,0 +1,25 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+.navbar {
+    background-color: #f2c319;
+}
+.navbar-brand {
+    font-weight: bold;
+    color: #000;
+}
+.dashboard-header {
+    margin-top: 20px;
+    text-align: center;
+}
+.table-container {
+    margin: 20px auto;
+    max-width: 800px;
+}
+.btn-group {
+    margin: 10px 0;
+}
+.status-cell {
+    text-align: center;
+}
