@@ -6,14 +6,13 @@
     <title>Admin Appointment Dashboard</title>
     <link rel="stylesheet" href="/css/setappointment.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
 </head>
 <body>
     <nav class="navbar navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="https://via.placeholder.com/30" alt="Logo" class="d-inline-block align-text-top">
-                Dashboard
+                Manage Appointments
             </a>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -28,16 +27,15 @@
         </div>
     </nav>
 
-    <div class="container">
-        <div class="dashboard-header">
-            <h1>Set Appointments</h1>
-        </div>
 
         <div class="table-container">
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Tasks</th>
+                        <th>Approved</th>
+                        <th>Denied</th>
                         <th>Assigned To</th>
                         <th>Status</th>
                     </tr>
@@ -53,30 +51,71 @@
             <span id="month-year">2024 November</span>
             <button class="btn btn-primary" onclick="navigate(1)">Next &gt;</button>
         </div>
-    </div>
 
+     
     <script>
         const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         let currentDate = new Date(2024, 10); // November 2024
 
-        const appointments = [
-            { day: 1, description: "", assignedTo: "", completed: true },
-            { day: 7, description: "", assignedTo: "", completed: false },
-            { day: 14, description: "", assignedTo: "", completed: false },
-            { day: 21, description: "", assignedTo: "", completed: true }
-        ];
-
+        const holidays = ["2024-11-01", "2024-11-25"]; // Example holidays
         const staffers = ["John Doe", "Jane Smith", "Alice Brown", "Bob White"];
+        const maxTasksPerDay = 3;
+
+        function isHoliday(date) {
+            return holidays.includes(date.toISOString().split('T')[0]);
+        }
+
+        function getDaysInMonth(year, month) {
+            const date = new Date(year, month, 1);
+            const days = [];
+            while (date.getMonth() === month) {
+                if (date.getDay() !== 0 && date.getDay() !== 6 && !isHoliday(date)) {
+                    days.push(new Date(date));
+                }
+                date.setDate(date.getDate() + 1);
+            }
+            return days;
+        }
 
         function renderAppointments() {
             const appointmentList = document.getElementById('appointment-list');
             appointmentList.innerHTML = '';
 
-            appointments.forEach((appointment, index) => {
+            const days = getDaysInMonth(currentDate.getFullYear(), currentDate.getMonth());
+            days.forEach(day => {
                 const row = document.createElement('tr');
 
-                const descCell = document.createElement('td');
-                descCell.textContent = `${monthNames[currentDate.getMonth()]} ${appointment.day}: ${appointment.description}`;
+                const dateCell = document.createElement('td');
+                dateCell.textContent = `${monthNames[day.getMonth()]} ${day.getDate()}, ${day.getFullYear()}`;
+
+                const tasksCell = document.createElement('td');
+                for (let i = 0; i < maxTasksPerDay; i++) {
+                    const taskInput = document.createElement('input');
+                    taskInput.type = 'text';
+                    taskInput.className = 'form-control mb-2';
+                    taskInput.placeholder = `Task ${i + 1}`;
+                    tasksCell.appendChild(taskInput);
+                }
+
+                const approvedCell = document.createElement('td');
+                const approveCheckbox = document.createElement('input');
+                approveCheckbox.type = 'checkbox';
+                approvedCell.appendChild(approveCheckbox);
+
+                const deniedCell = document.createElement('td');
+                const denyCheckbox = document.createElement('input');
+                denyCheckbox.type = 'checkbox';
+                denyCheckbox.addEventListener('change', () => {
+                    if (denyCheckbox.checked) {
+                        const reasonInput = document.createElement('textarea');
+                        reasonInput.className = 'form-control mt-2';
+                        reasonInput.placeholder = 'Provide denial reason';
+                        deniedCell.appendChild(reasonInput);
+                    } else {
+                        deniedCell.querySelectorAll('textarea').forEach(el => el.remove());
+                    }
+                });
+                deniedCell.appendChild(denyCheckbox);
 
                 const assignedCell = document.createElement('td');
                 const select = document.createElement('select');
@@ -85,24 +124,19 @@
                     const option = document.createElement('option');
                     option.value = staffer;
                     option.textContent = staffer;
-                    if (staffer === appointment.assignedTo) {
-                        option.selected = true;
-                    }
                     select.appendChild(option);
                 });
                 assignedCell.appendChild(select);
 
                 const statusCell = document.createElement('td');
-                statusCell.className = 'status-cell';
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.checked = appointment.completed;
-                checkbox.addEventListener('change', () => {
-                    appointments[index].completed = checkbox.checked;
-                });
-                statusCell.appendChild(checkbox);
+                const statusCheckbox = document.createElement('input');
+                statusCheckbox.type = 'checkbox';
+                statusCell.appendChild(statusCheckbox);
 
-                row.appendChild(descCell);
+                row.appendChild(dateCell);
+                row.appendChild(tasksCell);
+                row.appendChild(approvedCell);
+                row.appendChild(deniedCell);
                 row.appendChild(assignedCell);
                 row.appendChild(statusCell);
                 appointmentList.appendChild(row);
@@ -114,6 +148,8 @@
             document.getElementById('month-year').textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
             renderAppointments();
         }
+
+       
 
         // Initialize
         renderAppointments();
