@@ -1,11 +1,14 @@
+/* General Body Styles */
 body {
-    background-color: #f5c52b !important;
     font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #f5c52b !important;
 }
-
-/* Navbar styling */
+/* Navbar Styles */
 .navbar {
-    background-color: #f5c52b;
+    background-color: #f5c52b; /* Matching navbar background */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: relative;
     z-index: 10;
@@ -18,12 +21,13 @@ body {
 
 .navbar .navbar-nav .nav-link {
     font-size: 1.1rem;
-    color: #555;
+    color: black; /* Make nav links black for contrast */
 }
 
+/* Login Container Styles */
 .login-container {
     text-align: center;
-    background: #fff;
+    background: #fff; /* White background for the login container */
     padding: 40px;
     border-radius: 12px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -32,19 +36,19 @@ body {
     margin: 100px auto;
 }
 
-/* Heading styling */
+/* Heading Styling */
 .login-container h3 {
     font-size: 1.5rem;
-    color: #333;
+    color: #333; /* Dark color for headings */
     margin-bottom: 20px;
 }
 
-/* Dropdown Container Styling */
+/* Dropdown Styles */
 .dropdown {
     width: 100%;
 }
 
-/* Styling for the Dropdown button */
+/* Dropdown Button Styles */
 .dropdown-toggle {
     width: 100%;
     background-color: #6c757d;
@@ -55,9 +59,8 @@ body {
     font-size: 1rem;
 }
 
-/* Hover effect for dropdown button */
 .dropdown-toggle:hover {
-    background-color: #5a6268;
+    background-color: #f5c52b;
 }
 
 /* Dropdown Menu Styling */
@@ -72,26 +75,21 @@ body {
     font-size: 1rem;
 }
 
-/* Hover effect for dropdown items */
+/* Dropdown Item Hover Effect */
 .dropdown-item:hover {
     background-color: #f8f9fa;
 }
 
-.w-100 {
-    width: 100%;
-}
-
+/* Footer Styling */
 footer {
-    
-        position: absolute;
-        bottom: 20px;
-        left: 0;
-        right: 0;
-        text-align: center;
-        font-size: 14px;
-        font-weight: 600;
-        color: black;
-    
+    position: relative;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: black;
 }
 
 footer hr {

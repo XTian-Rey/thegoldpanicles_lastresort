@@ -8,7 +8,7 @@
 /* General Reset */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: var(--primary-color);
+    background-color: var(--primary-color); /* Set body background color to gold */
     margin: 0;
     padding: 0;
 }
@@ -16,7 +16,7 @@ body {
 /* Navbar Styling */
 .navbar {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: var(--primary-color);
+    background-color: var(--primary-color); /* Navbar background to match primary color */
 }
 .navbar-brand {
     font-size: 1.5rem;
@@ -26,7 +26,7 @@ body {
     color: var(--text-color);
 }
 .nav-link:hover {
-    color: #ffcc00; /* Slightly brighter gold */
+    color: #ffcc00; /* Slightly brighter gold for hover effect */
 }
 
 /* Logo Section */
@@ -40,51 +40,65 @@ body {
     color: var(--text-color);
 }
 
-/* Login Box */
-.login-box {
+/* Login Container */
+.login-container {
     max-width: 400px;
-    border: 1px solid #dee2e6;
     background-color: #ffffff;
     border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
-.login-box h2 {
+
+/* Heading Styling */
+.login-container h2 {
     color: var(--text-color);
     font-size: 1.5rem;
     font-weight: bold;
 }
-.login-box form .form-control {
-    border: 1px solid #ced4da;
+
+/* Form Control Styling */
+.login-container .form-control {
     border-radius: var(--border-radius);
+    border: 1px solid #ced4da;
 }
-.login-box form .form-control:focus {
+.login-container .form-control:focus {
     border-color: #ffcc00;
     box-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
 }
-.login-box button {
+
+/* Button Styles */
+.login-container button {
     background-color: var(--text-color);
     color: #ffffff;
     border: none;
     border-radius: 50px;
 }
-.login-box button:hover {
+.login-container button:hover {
     background-color: #212529;
 }
-.login-box .btn-outline-warning {
+
+/* Create Account Button */
+.login-container .btn-outline-warning {
     color: var(--text-color);
     border-color: #ffcc00;
 }
-.login-box .btn-outline-warning:hover {
+.login-container .btn-outline-warning:hover {
     background-color: #ffcc00;
     color: #ffffff;
 }
 
 /* Footer */
 footer {
-    background-color: var(--primary-color);
-    color: var(--text-color);
-    font-size: 0.9rem;
-    font-weight: bold;
+    position: relative;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: black;
 }
+
 footer hr {
     margin: 0 auto 10px;
     width: 90%;
@@ -97,7 +111,7 @@ footer hr {
         width: 60px;
         height: 60px;
     }
-    .login-box {
+    .login-container {
         padding: 2rem;
     }
 }
